@@ -7,16 +7,16 @@
     <description></description>
     <license>MIT</license>
     <keywords></keywords>
-    <repo>https://github.com/driftyco/cordova-plugin-template.git</repo>
-    <issue>https://github.com/driftyco/cordova-plugin-template/issues</issue>
+    <repo>https://github.com/anoopnadesan/cordova-plugin-template.git</repo>
+    <issue>https://github.com/anoopnadesan/cordova-plugin-template/issues</issue>
 
-    <!-- android -->
+     <!-- android -->
     <platform name="android">
       <js-module src="www/plugin.js" name="plugin">
         <runs/>
 
         <!-- This is the window variable name you want, like window.MyCordovaPlugin -->
-        <clobbers target="MyCordovaPlugin" />
+        <clobbers target="window.MyCordovaPlugin" />
       </js-module>
       <config-file target="res/xml/config.xml" parent="/*">
         <feature name="MyCordovaPlugin">

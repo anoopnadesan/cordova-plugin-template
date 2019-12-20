@@ -2,25 +2,33 @@
  */
 package com.example;
 
+import android.content.Context;
+import android.util.Log;
+
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.PluginResult;
-import org.apache.cordova.PluginResult.Status;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
-
-import android.util.Log;
 
 import java.util.Date;
 
 public class MyCordovaPlugin extends CordovaPlugin {
   private static final String TAG = "MyCordovaPlugin";
 
+  private ExampleService exampleService;
+
   public void initialize(CordovaInterface cordova, CordovaWebView webView) {
     super.initialize(cordova, webView);
+
+    final Context context = cordova.getActivity();
+
+    if (exampleService == null) {
+        exampleService = new ExampleService(context, cordova);
+    }
 
     Log.d(TAG, "Initializing MyCordovaPlugin");
   }
@@ -34,6 +42,10 @@ public class MyCordovaPlugin extends CordovaPlugin {
       // An example of returning data back to the web layer
       final PluginResult result = new PluginResult(PluginResult.Status.OK, (new Date()).toString());
       callbackContext.sendPluginResult(result);
+    } else if (action.equals("displayAlert")) {
+      JSONObject json = args.optJSONObject(0);
+      exampleService.displayAlert(callbackContext, json);
+      return true;
     }
     return true;
   }
